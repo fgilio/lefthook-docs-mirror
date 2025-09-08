@@ -1,0 +1,67 @@
+name: Update Documentation
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'  # Weekly on Sunday at midnight UTC
+  workflow_dispatch:      # Allow manual trigger
+  push:
+    branches:
+      - main
+    paths:
+      - 'scripts/consolidate-docs.php'
+      - '.github/workflows/update-docs.yml'
+
+jobs:
+  update-docs:
+    runs-on: ubuntu-latest
+    container:
+      image: php:8.3-cli
+    
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Install git
+        run: |
+          apt-get update
+          apt-get install -y git
+      
+      - name: Configure git
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      
+      - name: Clone Lefthook repository
+        run: |
+          git clone --depth 1 https://github.com/evilmartians/lefthook.git /tmp/lefthook
+      
+      - name: Run consolidation script
+        run: |
+          php scripts/consolidate-docs.php /tmp/lefthook/docs/mdbook LEFTHOOK-DOCS.md
+      
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if git diff --quiet LEFTHOOK-DOCS.md; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "No changes detected in documentation"
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Documentation changes detected"
+          fi
+      
+      - name: Commit and push changes
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git add LEFTHOOK-DOCS.md
+          git commit -m "Update documentation from upstream
+
+          Automated update from the official Lefthook repository.
+          Source: https://github.com/evilmartians/lefthook"
+          git push
