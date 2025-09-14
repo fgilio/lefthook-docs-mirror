@@ -2,7 +2,7 @@
 title: Lefthook Documentation (Complete)
 description: Complete consolidated documentation for Lefthook - The fastest polyglot Git hooks manager
 source: https://github.com/evilmartians/lefthook
-generated: 2025-09-08 12:54:32
+generated: 2025-09-14 00:22:35
 ---
 
 # Lefthook Documentation
@@ -133,6 +133,8 @@ generated: 2025-09-08 12:54:32
           - [`piped`](#piped)
       - [`follow`](#follow)
           - [`follow`](#follow)
+      - [`fail_on_changes`](#fail-on-changes)
+        - [fail_on_changes](#fail-on-changes)
       - [`exclude_tags`](#exclude-tags)
           - [`exclude_tags`](#exclude-tags)
       - [`skip`](#skip)
@@ -319,7 +321,7 @@ You can find the Swift wrapper plugin [here](https://github.com/csjones/lefthook
 Utilize lefthook in your Swift project using Swift Package Manager:
 
 ```swift
-.package(url: "https://github.com/csjones/lefthook-plugin.git", exact: "1.12.4"),
+.package(url: "https://github.com/csjones/lefthook-plugin.git", exact: "1.13.0"),
 ```
 
 Or, with [mint](https://github.com/yonaskolb/Mint):
@@ -333,8 +335,18 @@ mint run csjones/lefthook-plugin
 
 ##### Go
 
+The minimum Go version required is 1.24 and you can install
+
+- as global package
+
 ```bash
 go install github.com/evilmartians/lefthook@latest
+```
+
+- or as a go tool in your project
+
+```bash
+go get -tool github.com/evilmartians/lefthook
 ```
 
 
@@ -818,6 +830,7 @@ The `-local` config can be used without a main config file. This is useful when 
   - [`parallel`](#parallel)
   - [`piped`](#piped)
   - [`follow`](#follow)
+  - [`fail_on_changes`](#fail-on-changes)
   - [`exclude_tags`](#exclude-tags)
   - [`skip`](#skip)
   - [`only`](#only)
@@ -1606,6 +1619,28 @@ pre-push:
 ```
 
 > **Note:** If used with [`parallel`](#parallel) the output can be a mess, so please avoid setting both options to `true`
+
+
+#### `fail_on_changes`
+
+##### fail_on_changes
+
+The behaviour of lefthook when files (tracked by git) are modified can set by modifying the `fail_on_changes` configuration parameter. The possible values are:
+
+- `never`: never exit with a non-zero status if files were modified (default).
+- `always`: always exit with a non-zero status if files were modified.
+- `ci`: exit with a non-zero status only when `CI` environment variable is set. This can be useful when combined with `stage_fixed` to ensure a frictionless devX locally, and a robust CI. 
+
+```yml
+# lefthook.yml
+pre-commit:
+  parallel: true
+  fail_on_changes: "always"
+  commands:
+    lint:
+      run: yarn lint
+    test:
+      run: yarn test
 
 
 #### `exclude_tags`
@@ -3306,4 +3341,4 @@ THE SOFTWARE.
 
 ---
 
-*This documentation was automatically generated on 2025-09-08 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
+*This documentation was automatically generated on 2025-09-14 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
