@@ -2,7 +2,7 @@
 title: Lefthook Documentation (Complete)
 description: Complete consolidated documentation for Lefthook - The fastest polyglot Git hooks manager
 source: https://github.com/evilmartians/lefthook
-generated: 2025-09-14 00:22:35
+generated: 2025-09-21 00:23:24
 ---
 
 # Lefthook Documentation
@@ -321,7 +321,7 @@ You can find the Swift wrapper plugin [here](https://github.com/csjones/lefthook
 Utilize lefthook in your Swift project using Swift Package Manager:
 
 ```swift
-.package(url: "https://github.com/csjones/lefthook-plugin.git", exact: "1.13.0"),
+.package(url: "https://github.com/csjones/lefthook-plugin.git", exact: "1.13.1"),
 ```
 
 Or, with [mint](https://github.com/yonaskolb/Mint):
@@ -3341,4 +3341,4 @@ THE SOFTWARE.
 
 ---
 
-*This documentation was automatically generated on 2025-09-14 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
+*This documentation was automatically generated on 2025-09-21 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
