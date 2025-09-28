@@ -2,7 +2,7 @@
 title: Lefthook Documentation (Complete)
 description: Complete consolidated documentation for Lefthook - The fastest polyglot Git hooks manager
 source: https://github.com/evilmartians/lefthook
-generated: 2025-09-21 00:23:24
+generated: 2025-09-28 00:23:48
 ---
 
 # Lefthook Documentation
@@ -137,6 +137,8 @@ generated: 2025-09-21 00:23:24
         - [fail_on_changes](#fail-on-changes)
       - [`exclude_tags`](#exclude-tags)
           - [`exclude_tags`](#exclude-tags)
+      - [`exclude`](#exclude)
+          - [`exclude`](#exclude)
       - [`skip`](#skip)
           - [`skip`](#skip)
       - [`only`](#only)
@@ -165,8 +167,6 @@ generated: 2025-09-21 00:23:24
           - [`env`](#env)
         - [`root`](#root)
           - [`root`](#root)
-        - [`exclude`](#exclude)
-          - [`exclude`](#exclude)
         - [`fail_text`](#fail-text)
           - [`fail_text`](#fail-text)
         - [`stage_fixed`](#stage-fixed)
@@ -321,7 +321,7 @@ You can find the Swift wrapper plugin [here](https://github.com/csjones/lefthook
 Utilize lefthook in your Swift project using Swift Package Manager:
 
 ```swift
-.package(url: "https://github.com/csjones/lefthook-plugin.git", exact: "1.13.1"),
+.package(url: "https://github.com/csjones/lefthook-plugin.git", exact: "1.13.4"),
 ```
 
 Or, with [mint](https://github.com/yonaskolb/Mint):
@@ -335,12 +335,12 @@ mint run csjones/lefthook-plugin
 
 ##### Go
 
-The minimum Go version required is 1.24 and you can install
+The minimum Go version required is 1.25 and you can install
 
 - as global package
 
 ```bash
-go install github.com/evilmartians/lefthook@latest
+go install github.com/evilmartians/lefthook@v1.13.4
 ```
 
 - or as a go tool in your project
@@ -832,6 +832,7 @@ The `-local` config can be used without a main config file. This is useful when 
   - [`follow`](#follow)
   - [`fail_on_changes`](#fail-on-changes)
   - [`exclude_tags`](#exclude-tags)
+  - [`exclude`](#exclude)
   - [`skip`](#skip)
   - [`only`](#only)
   - [`jobs`](#jobs)
@@ -1700,6 +1701,45 @@ You can skip commands by tags:
 pre-push:
   exclude_tags:
     - frontend
+```
+
+
+#### `exclude`
+
+###### `exclude`
+
+This option allows to setup a list of globs for files to be excluded in files template.
+
+**Example**
+
+Run Rubocop on staged files with `.rb` extension except for `application.rb`, `routes.rb`, `rails_helper.rb`, and all Ruby files in `config/initializers/`.
+
+```yml
+# lefthook.yml
+
+pre-commit:
+  jobs:
+    - name: lint
+      glob: "*.rb"
+      exclude:
+        - config/routes.rb
+        - config/application.rb
+        - config/initializers/*.rb
+        - spec/rails_helper.rb
+      run: bundle exec rubocop --force-exclusion {staged_files}
+```
+
+If you've specified `exclude` but don't have a files template in [`run`](#run) option, lefthook will check `{staged_files}` for `pre-commit` hook and `{push_files}` for `pre-push` hook and apply filtering. If no files left, the command will be skipped.
+
+```yml
+# lefthook.yml
+
+pre-commit:
+  exclude:
+    - "*/application.rb"
+  jobs:
+    - name: lint
+      run: bundle exec rubocop # will skip if only application.rb was staged
 ```
 
 
@@ -2608,69 +2648,6 @@ pre-commit:
 Globs are still calculated from the actual root of the git repo, `root` is ignored.
 
 
-##### `exclude`
-
-###### `exclude`
-
-For the `exclude` option two variants are supported:
-
-- A list of globs to be excluded
-- A single regular expression (deprecated)
-
-
-> **Note:** The regular expression is matched against full paths to files in the repo,
-> relative to the repo root, using `/` as the directory separator on all platforms.
-> File paths do not begin with the separator or any other prefix.
-
-**Example**
-
-Run Rubocop on staged files with `.rb` extension except for `application.rb`, `routes.rb`, `rails_helper.rb`, and all Ruby files in `config/initializers/`.
-
-```yml
-# lefthook.yml
-
-pre-commit:
-  commands:
-    lint:
-      glob: "*.rb"
-      exclude:
-        - config/routes.rb
-        - config/application.rb
-        - config/initializers/*.rb
-        - spec/rails_helper.rb
-      run: bundle exec rubocop --force-exclusion {staged_files}
-```
-
-The same example using a regular expression.
-
-```yml
-# lefthook.yml
-
-pre-commit:
-  commands:
-    lint:
-      glob: "*.rb"
-      exclude: '(^|/)(application|routes|rails_helper|initializers/\w+)\.rb$'
-      run: bundle exec rubocop --force-exclusion {staged_files}
-```
-
-**Important**
-
-Be careful with the config file format's string quoting and escaping rules when writing regexps in it. For YAML, single quotes are often the simplest choice.
-
-If you've specified `exclude` but don't have a files template in [`run`](#run) option, lefthook will check `{staged_files}` for `pre-commit` hook and `{push_files}` for `pre-push` hook and apply filtering. If no files left, the command will be skipped.
-
-```yml
-# lefthook.yml
-
-pre-commit:
-  commands:
-    lint:
-      exclude: '(^|/)application\.rb$'
-      run: bundle exec rubocop # skipped if only application.rb was staged
-```
-
-
 ##### `fail_text`
 
 ###### `fail_text`
@@ -2919,6 +2896,7 @@ When you try to commit `git commit -m "bad commit text"` script `template_checke
 > ENV variables control some lefthook behavior. Most of them have the alternative CLI or config options.
 
 {{#include ./envs/LEFTHOOK.md}}
+{{#include ./envs/LEFTHOOK_BIN.md}}
 {{#include ./envs/LEFTHOOK_OUTPUT.md}}
 {{#include ./envs/LEFTHOOK_VERBOSE.md}}
 {{#include ./envs/LEFTHOOK_CONFIG.md}}
@@ -3341,4 +3319,4 @@ THE SOFTWARE.
 
 ---
 
-*This documentation was automatically generated on 2025-09-21 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
+*This documentation was automatically generated on 2025-09-28 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
