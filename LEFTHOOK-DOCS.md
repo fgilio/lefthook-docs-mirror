@@ -2,7 +2,7 @@
 title: Lefthook Documentation (Complete)
 description: Complete consolidated documentation for Lefthook - The fastest polyglot Git hooks manager
 source: https://github.com/evilmartians/lefthook
-generated: 2025-09-28 00:23:48
+generated: 2025-10-05 00:23:23
 ---
 
 # Lefthook Documentation
@@ -321,7 +321,7 @@ You can find the Swift wrapper plugin [here](https://github.com/csjones/lefthook
 Utilize lefthook in your Swift project using Swift Package Manager:
 
 ```swift
-.package(url: "https://github.com/csjones/lefthook-plugin.git", exact: "1.13.4"),
+.package(url: "https://github.com/csjones/lefthook-plugin.git", exact: "1.13.6"),
 ```
 
 Or, with [mint](https://github.com/yonaskolb/Mint):
@@ -340,7 +340,7 @@ The minimum Go version required is 1.25 and you can install
 - as global package
 
 ```bash
-go install github.com/evilmartians/lefthook@v1.13.4
+go install github.com/evilmartians/lefthook@v1.13.6
 ```
 
 - or as a go tool in your project
@@ -668,7 +668,7 @@ This command is available only if you install lefthook from sources or download 
 
 ##### Local config
 
-You can extend and override options of your main configuration with `lefthook-local.yml`. Don't forge to add the file to `.gitignore`.
+You can extend and override options of your main configuration with `lefthook-local.yml`. Don't forget to add the file to `.gitignore`.
 
 You can also use `lefthook-local.yml` without a main config file. This is useful when you want to use lefthook locally without imposing it on your teammates.
 
@@ -3319,4 +3319,4 @@ THE SOFTWARE.
 
 ---
 
-*This documentation was automatically generated on 2025-09-28 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
+*This documentation was automatically generated on 2025-10-05 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
