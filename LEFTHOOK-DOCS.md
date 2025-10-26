@@ -2,7 +2,7 @@
 title: Lefthook Documentation (Complete)
 description: Complete consolidated documentation for Lefthook - The fastest polyglot Git hooks manager
 source: https://github.com/evilmartians/lefthook
-generated: 2025-10-19 00:24:11
+generated: 2025-10-26 00:23:34
 ---
 
 # Lefthook Documentation
@@ -112,8 +112,6 @@ generated: 2025-10-19 00:24:11
           - [`refetch_frequency`](#refetch-frequency)
       - [`configs`](#configs)
           - [`configs`](#configs)
-    - [`skip_output`](#skip-output)
-        - [`skip_output`](#skip-output)
     - [`source_dir`](#source-dir)
         - [`source_dir`](#source-dir)
     - [`source_dir_local`](#source-dir-local)
@@ -321,7 +319,7 @@ You can find the Swift wrapper plugin [here](https://github.com/csjones/lefthook
 Utilize lefthook in your Swift project using Swift Package Manager:
 
 ```swift
-.package(url: "https://github.com/csjones/lefthook-plugin.git", exact: "1.13.6"),
+.package(url: "https://github.com/csjones/lefthook-plugin.git", exact: "2.0.1"),
 ```
 
 Or, with [mint](https://github.com/yonaskolb/Mint):
@@ -340,13 +338,13 @@ The minimum Go version required is 1.25 and you can install
 - as global package
 
 ```bash
-go install github.com/evilmartians/lefthook@v1.13.6
+go install github.com/evilmartians/lefthook/v2@v2.0.1
 ```
 
 - or as a go tool in your project
 
 ```bash
-go get -tool github.com/evilmartians/lefthook
+go get -tool github.com/evilmartians/lefthook/v2
 ```
 
 
@@ -561,10 +559,10 @@ $ lefthook run pre-commit # will run pre-commit hook (`yarn lint --fix`)
 
 ###### Run specific jobs
 
-You can specify which jobs to run (also `--commands`, `--scripts`, and `--tags` supported).
+You can specify which jobs to run (also `--tag` supported).
 
 ```bash
-$ lefthook run pre-commit --jobs lints --tags checks
+$ lefthook run pre-commit --job lints --job pretty --tag checks
 ```
 
 ###### Specify files
@@ -820,7 +818,6 @@ The `-local` config can be used without a main config file. This is useful when 
   - [`refetch`](#refetch)
   - [`refetch_frequency`](#refetch-frequency)
   - [`configs`](#configs)
-- [`skip_output`](#skip-output)
 - [`source_dir`](#source-dir)
 - [`source_dir_local`](#source-dir-local)
 - [`skip_lfs`](#skip-lfs)
@@ -1074,8 +1071,6 @@ You can also disable all output with setting `output: false`. In this case only 
 
 This config quiets all outputs except for errors.
 
-`output` is enabled if there is no `skip_output` and `LEFTHOOK_QUIET`.
-
 **Example**
 
 ```yml
@@ -1328,45 +1323,6 @@ remotes:
       - configs/pre-push.yml
 
 ```
-
-
-### `skip_output`
-
-##### `skip_output`
-
-> **DEPRECATED** This feature is deprecated and might be removed in future versions. Please, use [`output`](#output) instead for managing verbosity.
-
-You can manage the verbosity using the `skip_output` config. You can set whether lefthook should print some parts of its output.
-
-Possible values are `meta,summary,success,failure,execution,execution_out,execution_info,skips`.
-
-You can also disable all output with setting `skip_output: true`. In this case only errors will be printed.
-
-This config quiets all outputs except for errors.
-
-**Example**
-
-```yml
-# lefthook.yml
-
-skip_output:
-  - meta           # Skips lefthook version printing
-  - summary        # Skips summary block (successful and failed steps) printing
-  - empty_summary  # Skips summary heading when there are no steps to run
-  - success        # Skips successful steps printing
-  - failure        # Skips failed steps printing
-  - execution      # Skips printing any execution logs (but prints if the execution failed)
-  - execution_out  # Skips printing execution output (but still prints failed commands output)
-  - execution_info # Skips printing `EXECUTE > ...` logging
-  - skips          # Skips "skip" printing (i.e. no files matched)
-```
-
-You can also *extend* this list with an environment variable `LEFTHOOK_QUIET`:
-
-```bash
-LEFTHOOK_QUIET="meta,success,summary" lefthook run pre-commit
-```
-
 
 
 ### `source_dir`
@@ -3319,4 +3275,4 @@ THE SOFTWARE.
 
 ---
 
-*This documentation was automatically generated on 2025-10-19 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
+*This documentation was automatically generated on 2025-10-26 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
