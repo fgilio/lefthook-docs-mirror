@@ -2,7 +2,7 @@
 title: Lefthook Documentation (Complete)
 description: Complete consolidated documentation for Lefthook - The fastest polyglot Git hooks manager
 source: https://github.com/evilmartians/lefthook
-generated: 2025-10-26 00:23:34
+generated: 2025-11-02 00:24:10
 ---
 
 # Lefthook Documentation
@@ -319,7 +319,7 @@ You can find the Swift wrapper plugin [here](https://github.com/csjones/lefthook
 Utilize lefthook in your Swift project using Swift Package Manager:
 
 ```swift
-.package(url: "https://github.com/csjones/lefthook-plugin.git", exact: "2.0.1"),
+.package(url: "https://github.com/csjones/lefthook-plugin.git", exact: "2.0.2"),
 ```
 
 Or, with [mint](https://github.com/yonaskolb/Mint):
@@ -338,7 +338,7 @@ The minimum Go version required is 1.25 and you can install
 - as global package
 
 ```bash
-go install github.com/evilmartians/lefthook/v2@v2.0.1
+go install github.com/evilmartians/lefthook/v2@v2.0.2
 ```
 
 - or as a go tool in your project
@@ -3275,4 +3275,4 @@ THE SOFTWARE.
 
 ---
 
-*This documentation was automatically generated on 2025-10-26 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
+*This documentation was automatically generated on 2025-11-02 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
