@@ -2,7 +2,7 @@
 title: Lefthook Documentation (Complete)
 description: Complete consolidated documentation for Lefthook - The fastest polyglot Git hooks manager
 source: https://github.com/evilmartians/lefthook
-generated: 2025-11-02 00:24:10
+generated: 2025-11-09 00:24:19
 ---
 
 # Lefthook Documentation
@@ -2509,7 +2509,7 @@ pre-commit:
         - text/x-sh
 ```
 
-[^1]: All supported MIME types can be found here: [supported_mimes.md](https://github.com/gabriel-vasile/mimetype/blob/2f0854be3b9bbae4d449f8994d133f1c743f1885/supported_mimes.md)
+[^1]: All supported MIME types can be found here: [supported_mimes.md](https://github.com/gabriel-vasile/mimetype/blob/v1.4.11/supported_mimes.md)
 
 
 ##### `env`
@@ -3275,4 +3275,4 @@ THE SOFTWARE.
 
 ---
 
-*This documentation was automatically generated on 2025-11-02 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
+*This documentation was automatically generated on 2025-11-09 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
