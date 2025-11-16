@@ -2,7 +2,7 @@
 title: Lefthook Documentation (Complete)
 description: Complete consolidated documentation for Lefthook - The fastest polyglot Git hooks manager
 source: https://github.com/evilmartians/lefthook
-generated: 2025-11-09 00:24:19
+generated: 2025-11-16 00:24:33
 ---
 
 # Lefthook Documentation
@@ -118,6 +118,8 @@ generated: 2025-11-09 00:24:19
         - [`source_dir_local`](#source-dir-local)
     - [`skip_lfs`](#skip-lfs)
         - [`skip_lfs`](#skip-lfs)
+    - [`glob_matcher`](#glob-matcher)
+        - [`glob_matcher`](#glob-matcher)
     - [`templates`](#templates)
         - [`templates`](#templates)
         - [Example](#example)
@@ -319,7 +321,7 @@ You can find the Swift wrapper plugin [here](https://github.com/csjones/lefthook
 Utilize lefthook in your Swift project using Swift Package Manager:
 
 ```swift
-.package(url: "https://github.com/csjones/lefthook-plugin.git", exact: "2.0.2"),
+.package(url: "https://github.com/csjones/lefthook-plugin.git", exact: "2.0.4"),
 ```
 
 Or, with [mint](https://github.com/yonaskolb/Mint):
@@ -338,7 +340,7 @@ The minimum Go version required is 1.25 and you can install
 - as global package
 
 ```bash
-go install github.com/evilmartians/lefthook/v2@v2.0.2
+go install github.com/evilmartians/lefthook/v2@v2.0.4
 ```
 
 - or as a go tool in your project
@@ -1380,6 +1382,95 @@ pre-push:
 ```
 
 
+### `glob_matcher`
+
+##### `glob_matcher`
+
+You can configure which glob matching engine lefthook uses to filter files. By default, lefthook uses `gobwas/glob`, but you can opt-in to use `doublestar` for standard glob behavior.
+
+**Values:**
+- `gobwas` (default): The current glob implementation
+- `doublestar`: Standard glob behavior where `**` matches 0 or more directories
+
+**Example:**
+
+```yml
+# lefthook.yml
+
+glob_matcher: doublestar
+
+pre-commit:
+  jobs:
+    - name: lint
+      run: yarn eslint {staged_files}
+      glob: "**/*.{js,ts}"
+```
+
+###### Key Differences
+
+The main difference between the two matchers is how they handle `**`:
+
+###### Default behavior (`gobwas`)
+
+The `**` pattern matches **1 or more** directories:
+- `**/*.js` matches `folder/file.js`, `a/b/c/file.js`
+- `**/*.js` does **NOT** match `file.js` at the root level
+
+###### Standard behavior (`doublestar`)
+
+The `**` pattern matches **0 or more** directories:
+- `**/*.js` matches `file.js`, `folder/file.js`, `a/b/c/file.js`
+- This is consistent with most glob implementations
+
+###### When to Use
+
+**Use `glob_matcher: doublestar` when:**
+- You want standard glob behavior consistent with other tools
+- You need `**` to match files at any level including the root
+- You're migrating from other tools that use standard glob patterns
+
+**Keep the default (`gobwas`) when:**
+- You want to maintain existing behavior
+- You specifically need `**` to require at least one directory level
+- You have existing patterns that depend on the current behavior
+
+###### Example Comparison
+
+```yml
+# With default (gobwas)
+glob_matcher: gobwas  # or omit this line
+
+pre-commit:
+  jobs:
+    - run: eslint {staged_files}
+      glob: "**/*.js"
+      # Matches: src/app.js, lib/util.js
+      # Does NOT match: app.js
+
+    - run: eslint {staged_files}
+      glob: "*.js"
+      # Matches: app.js
+      # Does NOT match: src/app.js
+```
+
+```yml
+# With doublestar
+glob_matcher: doublestar
+
+pre-commit:
+  jobs:
+    - run: eslint {staged_files}
+      glob: "**/*.js"
+      # Matches: app.js, src/app.js, lib/util.js
+```
+
+###### Notes
+
+- The `glob_matcher` setting is global and applies to all `glob` and `exclude` patterns in your configuration
+- This setting does not affect `root` or other path-related options
+- The setting is fully backward compatible - existing configurations continue to work without modification
+
+
 ### `templates`
 
 ##### `templates`
@@ -1586,7 +1677,8 @@ The behaviour of lefthook when files (tracked by git) are modified can set by mo
 
 - `never`: never exit with a non-zero status if files were modified (default).
 - `always`: always exit with a non-zero status if files were modified.
-- `ci`: exit with a non-zero status only when `CI` environment variable is set. This can be useful when combined with `stage_fixed` to ensure a frictionless devX locally, and a robust CI. 
+- `ci`: exit with a non-zero status only when the `CI` environment variable is set. This can be useful when combined with `stage_fixed` to ensure a frictionless devX locally, and a robust CI.
+- `non-ci`: exit with a non-zero status only when the `CI` environment variable is _not_ set. This can be useful in setups where the CI pipeline commits changes automatically, such as [autofix.ci](https://autofix.ci).
 
 ```yml
 # lefthook.yml
@@ -1598,6 +1690,7 @@ pre-commit:
       run: yarn lint
     test:
       run: yarn test
+```
 
 
 #### `exclude_tags`
@@ -1665,6 +1758,8 @@ pre-push:
 ###### `exclude`
 
 This option allows to setup a list of globs for files to be excluded in files template.
+
+> **Note:** The glob patterns used in `exclude` are affected by the [`glob_matcher`](#glob-matcher) setting. See the glob_matcher documentation for details on how `**` patterns behave.
 
 **Example**
 
@@ -2354,6 +2449,8 @@ You'll need:
 ```yaml
 glob: "src/*.js"
 ```
+
+Alternatively, you can opt-in to standard glob behavior by setting [`glob_matcher: doublestar`](#glob-matcher-doublestar) at the top level of your configuration. With this setting, `**` will match 0 or more directories, making it consistent with most other glob implementations.
 
 ***Using `glob` without a files template in`run`***
 
@@ -3275,4 +3372,4 @@ THE SOFTWARE.
 
 ---
 
-*This documentation was automatically generated on 2025-11-09 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
+*This documentation was automatically generated on 2025-11-16 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
