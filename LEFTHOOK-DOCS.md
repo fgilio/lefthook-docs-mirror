@@ -2,7 +2,7 @@
 title: Lefthook Documentation (Complete)
 description: Complete consolidated documentation for Lefthook - The fastest polyglot Git hooks manager
 source: https://github.com/evilmartians/lefthook
-generated: 2025-11-23 00:25:59
+generated: 2025-11-30 00:25:41
 ---
 
 # Lefthook Documentation
@@ -3372,4 +3372,4 @@ THE SOFTWARE.
 
 ---
 
-*This documentation was automatically generated on 2025-11-23 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
+*This documentation was automatically generated on 2025-11-30 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
