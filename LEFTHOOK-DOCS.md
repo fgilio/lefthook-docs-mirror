@@ -2,7 +2,7 @@
 title: Lefthook Documentation (Complete)
 description: Complete consolidated documentation for Lefthook - The fastest polyglot Git hooks manager
 source: https://github.com/evilmartians/lefthook
-generated: 2025-11-30 00:25:41
+generated: 2025-12-07 00:26:08
 ---
 
 # Lefthook Documentation
@@ -153,6 +153,8 @@ generated: 2025-11-30 00:25:41
           - [`script`](#script)
         - [`runner`](#runner)
           - [`runner`](#runner)
+        - [`args`](#args)
+          - [`args`](#args)
         - [`group`](#group)
           - [`group`](#group)
         - [`tags`](#tags)
@@ -321,7 +323,7 @@ You can find the Swift wrapper plugin [here](https://github.com/csjones/lefthook
 Utilize lefthook in your Swift project using Swift Package Manager:
 
 ```swift
-.package(url: "https://github.com/csjones/lefthook-plugin.git", exact: "2.0.4"),
+.package(url: "https://github.com/csjones/lefthook-plugin.git", exact: "2.0.8"),
 ```
 
 Or, with [mint](https://github.com/yonaskolb/Mint):
@@ -340,7 +342,7 @@ The minimum Go version required is 1.25 and you can install
 - as global package
 
 ```bash
-go install github.com/evilmartians/lefthook/v2@v2.0.4
+go install github.com/evilmartians/lefthook/v2@v2.0.8
 ```
 
 - or as a go tool in your project
@@ -361,6 +363,11 @@ python -m pip install --user lefthook
 ```sh
 uv add --dev lefthook
 ```
+
+```sh
+pipx install lefthook
+```
+
 
 ### Scoop
 
@@ -839,6 +846,7 @@ The `-local` config can be used without a main config file. This is useful when 
     - [`run`](#run)
     - [`script`](#script)
     - [`runner`](#runner)
+    - [`args`](#args)
     - [`group`](#group)
       - [`parallel`](#parallel)
       - [`piped`](#piped)
@@ -874,6 +882,7 @@ The `-local` config can be used without a main config file. This is useful when 
     - [`priority`](#priority)
   - [`scripts`](#scripts)
     - [`runner`](#runner)
+    - [`args`](#args)
     - [`skip`](#skip)
     - [`only`](#only)
     - [`tags`](#tags)
@@ -2096,7 +2105,7 @@ You can use files templates that will be substituted with the appropriate files 
 - `{all_files}` - all files tracked by git.
 - `{cmd}` - shorthand for the command from `lefthook.yml`.
 - `{0}` - shorthand for the single space-joint string of git hook arguments.
-- `{N}` - shorthand for the N-th git hook argument.
+- `{1}` - shorthand for the 1-st git hook argument (and so on for `{2}`, `{3}`, etc.)
 - `{lefthook_job_name}` - current job/command/script name
 
 > **Note:** Command line length has a limit on every system. If your list of files is quite long, lefthook splits your files list to fit in the limit and runs few commands sequentially.
@@ -2305,6 +2314,38 @@ pre-commit:
       runner: node
     "check.go":
       runner: go run
+```
+
+
+##### `args`
+
+###### `args`
+
+> Support added in lefthook version `2.0.5`
+
+Sometimes you want to pass arguments to the scripts or be able to overwrite arguments to the commands in `lefthook-local.yml`. For this you can use `args` option which will simply be appended to the command. You can use the same templates as in [`run`](#run).
+
+Arguments passed by Git will be omitted if you specify `args` in the config. Providing no `args` or providing `args: "{0}"` works the same way.
+
+See [`run`](#run) for supported templates.
+
+**Example**
+
+```yml
+# lefthook.yml
+
+pre-commit:
+  jobs:
+    - script: check-python-files.sh
+      runner: bash
+      args: "{staged_files}"
+      glob: "*.py"
+
+    - run: yarn lint
+      args: "{staged_files}"
+      glob:
+        - "*.ts"
+        - "*.js"
 ```
 
 
@@ -3372,4 +3413,4 @@ THE SOFTWARE.
 
 ---
 
-*This documentation was automatically generated on 2025-11-30 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
+*This documentation was automatically generated on 2025-12-07 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
