@@ -2,7 +2,7 @@
 title: Lefthook Documentation (Complete)
 description: Complete consolidated documentation for Lefthook - The fastest polyglot Git hooks manager
 source: https://github.com/evilmartians/lefthook
-generated: 2025-12-07 00:26:08
+generated: 2025-12-14 00:26:04
 ---
 
 # Lefthook Documentation
@@ -94,6 +94,8 @@ generated: 2025-12-07 00:26:08
         - [`lefthook`](#lefthook)
     - [`min_version`](#min-version)
         - [`min_version`](#min-version)
+    - [`no_auto_install`](#no-auto-install)
+        - [`no_auto_install`](#no-auto-install)
     - [`no_tty`](#no-tty)
         - [`no_tty`](#no-tty)
     - [`output`](#output)
@@ -323,7 +325,7 @@ You can find the Swift wrapper plugin [here](https://github.com/csjones/lefthook
 Utilize lefthook in your Swift project using Swift Package Manager:
 
 ```swift
-.package(url: "https://github.com/csjones/lefthook-plugin.git", exact: "2.0.8"),
+.package(url: "https://github.com/csjones/lefthook-plugin.git", exact: "2.0.11"),
 ```
 
 Or, with [mint](https://github.com/yonaskolb/Mint):
@@ -342,7 +344,7 @@ The minimum Go version required is 1.25 and you can install
 - as global package
 
 ```bash
-go install github.com/evilmartians/lefthook/v2@v2.0.8
+go install github.com/evilmartians/lefthook/v2@v2.0.11
 ```
 
 - or as a go tool in your project
@@ -1049,6 +1051,30 @@ If you want to specify a minimum version for lefthook binary (e.g. if you need s
 # lefthook.yml
 
 min_version: 1.1.3
+```
+
+
+### `no_auto_install`
+
+##### `no_auto_install`
+
+**Default: `false`**
+
+Disable automatic installation and synchronization of git hooks when running lefthook. By default, lefthook automatically installs and updates hooks when you run `lefthook run` if the configuration has changed. Setting this to `true` disables that behavior.
+
+This can also be controlled with the `--no-auto-install` option for the `lefthook run` command.
+
+**Example**
+
+```yml
+# lefthook.yml
+
+no_auto_install: true
+
+pre-commit:
+  commands:
+    lint:
+      run: npm run lint
 ```
 
 
@@ -3265,7 +3291,7 @@ yarn lint frontend/src/index.ts --fix
 
 Here are two hooks.
 
-`pre-commit` hook will only be executed when you're committing something on a branch starting with `def/` prefix.
+`pre-commit` hook will only be executed when you're committing something on a branch starting with `dev/` prefix.
 
 In `pre-push` hook:
 - `test` command will be skipped if `NO_TEST` env variable is set to `1`
@@ -3413,4 +3439,4 @@ THE SOFTWARE.
 
 ---
 
-*This documentation was automatically generated on 2025-12-07 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
+*This documentation was automatically generated on 2025-12-14 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
