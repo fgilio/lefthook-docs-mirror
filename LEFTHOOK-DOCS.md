@@ -2,7 +2,7 @@
 title: Lefthook Documentation (Complete)
 description: Complete consolidated documentation for Lefthook - The fastest polyglot Git hooks manager
 source: https://github.com/evilmartians/lefthook
-generated: 2025-12-14 00:26:04
+generated: 2025-12-21 00:25:58
 ---
 
 # Lefthook Documentation
@@ -137,6 +137,8 @@ generated: 2025-12-14 00:26:04
           - [`follow`](#follow)
       - [`fail_on_changes`](#fail-on-changes)
         - [fail_on_changes](#fail-on-changes)
+      - [`fail_on_changes_diff`](#fail-on-changes-diff)
+        - [fail_on_changes_diff](#fail-on-changes-diff)
       - [`exclude_tags`](#exclude-tags)
           - [`exclude_tags`](#exclude-tags)
       - [`exclude`](#exclude)
@@ -325,7 +327,7 @@ You can find the Swift wrapper plugin [here](https://github.com/csjones/lefthook
 Utilize lefthook in your Swift project using Swift Package Manager:
 
 ```swift
-.package(url: "https://github.com/csjones/lefthook-plugin.git", exact: "2.0.11"),
+.package(url: "https://github.com/csjones/lefthook-plugin.git", exact: "2.0.12"),
 ```
 
 Or, with [mint](https://github.com/yonaskolb/Mint):
@@ -344,7 +346,7 @@ The minimum Go version required is 1.25 and you can install
 - as global package
 
 ```bash
-go install github.com/evilmartians/lefthook/v2@v2.0.11
+go install github.com/evilmartians/lefthook/v2@v2.0.12
 ```
 
 - or as a go tool in your project
@@ -839,6 +841,7 @@ The `-local` config can be used without a main config file. This is useful when 
   - [`piped`](#piped)
   - [`follow`](#follow)
   - [`fail_on_changes`](#fail-on-changes)
+  - [`fail_on_changes_diff`](#fail-on-changes-diff)
   - [`exclude_tags`](#exclude-tags)
   - [`exclude`](#exclude)
   - [`skip`](#skip)
@@ -1715,11 +1718,37 @@ The behaviour of lefthook when files (tracked by git) are modified can set by mo
 - `ci`: exit with a non-zero status only when the `CI` environment variable is set. This can be useful when combined with `stage_fixed` to ensure a frictionless devX locally, and a robust CI.
 - `non-ci`: exit with a non-zero status only when the `CI` environment variable is _not_ set. This can be useful in setups where the CI pipeline commits changes automatically, such as [autofix.ci](https://autofix.ci).
 
+See also [`fail_on_changes_diff`](#fail-on-changes-diff).
+
 ```yml
 # lefthook.yml
 pre-commit:
   parallel: true
   fail_on_changes: "always"
+  commands:
+    lint:
+      run: yarn lint
+    test:
+      run: yarn test
+```
+
+
+#### `fail_on_changes_diff`
+
+##### fail_on_changes_diff
+
+When Lefthook exits with a non-zero status as a result of [`fail_on_changes`](#fail-on-changes) triggering,
+it can optionally output a diff of the detected changes.
+
+The default behavior is to output the diff when run in a CI pipeline.
+The `fail_on_changes_diff` boolean configuration parameter can be used to override this.
+
+```yml
+# lefthook.yml
+pre-commit:
+  parallel: true
+  fail_on_changes: "always"
+  fail_on_changes_diff: true
   commands:
     lint:
       run: yarn lint
@@ -3439,4 +3468,4 @@ THE SOFTWARE.
 
 ---
 
-*This documentation was automatically generated on 2025-12-14 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
+*This documentation was automatically generated on 2025-12-21 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
