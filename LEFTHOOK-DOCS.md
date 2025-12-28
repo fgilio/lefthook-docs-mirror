@@ -2,7 +2,7 @@
 title: Lefthook Documentation (Complete)
 description: Complete consolidated documentation for Lefthook - The fastest polyglot Git hooks manager
 source: https://github.com/evilmartians/lefthook
-generated: 2025-12-21 00:25:58
+generated: 2025-12-28 00:27:18
 ---
 
 # Lefthook Documentation
@@ -327,7 +327,7 @@ You can find the Swift wrapper plugin [here](https://github.com/csjones/lefthook
 Utilize lefthook in your Swift project using Swift Package Manager:
 
 ```swift
-.package(url: "https://github.com/csjones/lefthook-plugin.git", exact: "2.0.12"),
+.package(url: "https://github.com/csjones/lefthook-plugin.git", exact: "2.0.13"),
 ```
 
 Or, with [mint](https://github.com/yonaskolb/Mint):
@@ -346,7 +346,7 @@ The minimum Go version required is 1.25 and you can install
 - as global package
 
 ```bash
-go install github.com/evilmartians/lefthook/v2@v2.0.12
+go install github.com/evilmartians/lefthook/v2@v2.0.13
 ```
 
 - or as a go tool in your project
@@ -1108,8 +1108,6 @@ Possible values are `meta,summary,success,failure,execution,execution_out,execut
 By default, all output values are enabled
 
 You can also disable all output with setting `output: false`. In this case only errors will be printed.
-
-This config quiets all outputs except for errors.
 
 **Example**
 
@@ -3468,4 +3466,4 @@ THE SOFTWARE.
 
 ---
 
-*This documentation was automatically generated on 2025-12-21 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
+*This documentation was automatically generated on 2025-12-28 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
