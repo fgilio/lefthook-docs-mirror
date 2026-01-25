@@ -2,7 +2,7 @@
 title: Lefthook Documentation (Complete)
 description: Complete consolidated documentation for Lefthook - The fastest polyglot Git hooks manager
 source: https://github.com/evilmartians/lefthook
-generated: 2026-01-18 00:26:49
+generated: 2026-01-25 00:27:33
 ---
 
 # Lefthook Documentation
@@ -1266,6 +1266,8 @@ An optional *branch* or *tag* name.
 
 > **Note:** If you initially had `ref` option, ran `lefthook install`, and then removed it, lefthook won't decide which branch/tag to use as a ref. So, if you added it once, please, use it always to avoid issues in local setups.
 
+See also [`refetch_frequency`](#refetch-frequency).
+
 **Example**
 
 ```yml
@@ -1284,6 +1286,8 @@ remotes:
 **Default:** `false`
 
 Force remote config refetching on every run. Lefthook will be refetching the specified remote every time it is called.
+
+See [`refetch_frequency`](#refetch-frequency) for more flexible refetching options and additional considerations.
 
 **Example**
 
@@ -1307,6 +1311,13 @@ Specifies how frequently Lefthook should refetch the remote configuration. This 
 - When set to `always`, Lefthook will always refetch the remote configuration on each run.
 - When set to a duration (e.g., `24h`), Lefthook will check the last fetch time and refetch the configuration only if the specified amount of time has passed.
 - When set to `never` or not set, Lefthook will not fetch from remote.
+
+It is recommended to configure remotes that point to mutable references
+(including ones without a `ref`) to be refetched with some frequency appropriate for the project.
+
+Failure to fetch does not cause an error, but just a warning message.
+If a successfully fetched previous configuration exists, it will be used.
+Otherwise, the remote will be ignored.
 
 **Example**
 
@@ -3470,4 +3481,4 @@ THE SOFTWARE.
 
 ---
 
-*This documentation was automatically generated on 2026-01-18 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
+*This documentation was automatically generated on 2026-01-25 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
