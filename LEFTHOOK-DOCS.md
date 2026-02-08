@@ -2,7 +2,7 @@
 title: Lefthook Documentation (Complete)
 description: Complete consolidated documentation for Lefthook - The fastest polyglot Git hooks manager
 source: https://github.com/evilmartians/lefthook
-generated: 2026-02-01 00:34:11
+generated: 2026-02-08 00:37:54
 ---
 
 # Lefthook Documentation
@@ -90,6 +90,8 @@ generated: 2026-02-01 00:34:11
         - [`colors`](#colors)
     - [`extends`](#extends)
         - [`extends`](#extends)
+    - [`install_non_git_hooks`](#install-non-git-hooks)
+        - [`install_non_git_hooks`](#install-non-git-hooks)
     - [`lefthook`](#lefthook)
         - [`lefthook`](#lefthook)
     - [`min_version`](#min-version)
@@ -327,7 +329,7 @@ You can find the Swift wrapper plugin [here](https://github.com/csjones/lefthook
 Utilize lefthook in your Swift project using Swift Package Manager:
 
 ```swift
-.package(url: "https://github.com/csjones/lefthook-plugin.git", exact: "2.0.16"),
+.package(url: "https://github.com/csjones/lefthook-plugin.git", exact: "2.1.0"),
 ```
 
 Or, with [mint](https://github.com/yonaskolb/Mint):
@@ -346,7 +348,7 @@ The minimum Go version required is 1.25 and you can install
 - as global package
 
 ```bash
-go install github.com/evilmartians/lefthook/v2@v2.0.16
+go install github.com/evilmartians/lefthook/v2@v2.1.0
 ```
 
 - or as a go tool in your project
@@ -976,6 +978,15 @@ extends:
 > So, `extends` override settings from `lefthook.yml`, `remotes` override `extends`, and `lefthook-local.yml` can override everything.
 
 
+
+
+### `install_non_git_hooks`
+
+##### `install_non_git_hooks`
+
+> Since lefthook 2.0.17
+
+Install non-Git hooks into `.git/hooks`. May be useful for using with tools like https://git-flow.sh/.
 
 
 ### `lefthook`
@@ -3481,4 +3492,4 @@ THE SOFTWARE.
 
 ---
 
-*This documentation was automatically generated on 2026-02-01 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
+*This documentation was automatically generated on 2026-02-08 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
