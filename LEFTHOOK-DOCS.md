@@ -2,7 +2,7 @@
 title: Lefthook Documentation (Complete)
 description: Complete consolidated documentation for Lefthook - The fastest polyglot Git hooks manager
 source: https://github.com/evilmartians/lefthook
-generated: 2026-02-08 00:37:54
+generated: 2026-02-15 00:32:02
 ---
 
 # Lefthook Documentation
@@ -329,7 +329,7 @@ You can find the Swift wrapper plugin [here](https://github.com/csjones/lefthook
 Utilize lefthook in your Swift project using Swift Package Manager:
 
 ```swift
-.package(url: "https://github.com/csjones/lefthook-plugin.git", exact: "2.1.0"),
+.package(url: "https://github.com/csjones/lefthook-plugin.git", exact: "2.1.1"),
 ```
 
 Or, with [mint](https://github.com/yonaskolb/Mint):
@@ -348,7 +348,7 @@ The minimum Go version required is 1.25 and you can install
 - as global package
 
 ```bash
-go install github.com/evilmartians/lefthook/v2@v2.1.0
+go install github.com/evilmartians/lefthook/v2@v2.1.1
 ```
 
 - or as a go tool in your project
@@ -945,6 +945,10 @@ colors:
   yellow: '#F0E68C'
 ```
 
+Control via ENV variable.
+
+- Set `NO_COLOR=true` to disable colored output in lefthook and all subcommands that lefthook calls.
+- Set `CLICOLOR_FORCE=true` to force colored output in lefthook and all subcommands.
 
 
 ### `extends`
@@ -3492,4 +3496,4 @@ THE SOFTWARE.
 
 ---
 
-*This documentation was automatically generated on 2026-02-08 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
+*This documentation was automatically generated on 2026-02-15 from the [official Lefthook repository](https://github.com/evilmartians/lefthook).*
